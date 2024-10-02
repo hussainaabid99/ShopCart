@@ -13,7 +13,7 @@ import {
 } from 'reactstrap';
 
 //CSS import
-import './Header.css'
+import './Header.css';
 
 function Header(props) {
      const [isOpen, setIsOpen] = useState(false);
@@ -45,6 +45,5 @@ function Header(props) {
           </div>
      );
 }
-
 
 export default Header;
