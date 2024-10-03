@@ -1,0 +1,41 @@
+.product-list-title {
+     font-size: 3rem;
+     margin: 40px 0;
+     font-weight: normal;
+}
+
+.product-list-box {
+     flex-basis: 80%;
+}
+
+.product-list-box .product-item {
+     width: 30%;
+     margin-right: 2%;
+     margin-bottom: 30px;
+     box-shadow: 0px 1px 5px var(--light-gray);
+     padding: 0.5rem;
+}
+
+.product-list-box .product-item img {
+     width: 100%;
+}
+
+.product-list-box .product-item .product-name {
+     font-size: 1.5rem;
+     padding: 0.7rem 0;
+     color: black;
+}
+
+.product-list-box .product-item .product-price {
+     color: var(--jean-blue);
+     padding-bottom: 10px;
+}
+
+.product-list-box .product-item:nth-child(3n) {
+     margin-right: 0;
+}
+
+.product-list-box .product-item:hover {
+     box-shadow: 0px 4px 10px var(--light-gray);
+     transition: box-shadow 0.15s linear 0s;
+}
