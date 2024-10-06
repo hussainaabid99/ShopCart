@@ -11,7 +11,7 @@ function ProductBox({ productImage, name, price }) {
                     <img src={productImage} alt="" />
                </div>
                <div className="product-name text-center">{name}</div>
-               <div className="product-price text-center">&#8377; {price}</div>
+               <div className="product-price text-center">$ {price}</div>
           </Link>
      )
 

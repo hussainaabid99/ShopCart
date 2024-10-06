@@ -1,7 +1,20 @@
+import { useNavigate } from 'react-router-dom';
+import useCategory from '../../hooks/useCategory';
+
 //CSS import
 import './FilterProducts.css';
 
 function FilterProducts() {
+
+     const minPriceOptions = [0, 10, 20, 50, 100, 200];
+     const maxPriceOptions = [0, 10, 20, 50, 100, 200, 500, 1000];
+
+     const [categories] = useCategory();
+     const navigate = useNavigate();
+
+     function handleCategoryNavigate(category) {
+          navigate(`/products?category=${category}`)
+     }
 
      return (
           <div className="product-list-sidebar d-flex flex-column">
@@ -14,9 +27,10 @@ function FilterProducts() {
 
                <div className="sidebar-title fw-bold">Categories</div>
                <div id="categoryList">
-                    <a className='d-flex text-decoration-none'>Electronics</a>
-                    <a className='d-flex text-decoration-none'>Kitchenware</a>
-                    <a className='d-flex text-decoration-none'>Medicine</a>
+                    {categories && categories.map((category) =>
+                         <a onClick={() => handleCategoryNavigate(category)} key={category} className='d-flex text-decoration-none'>
+                              {category}
+                         </a>)}
                </div>
 
                <div className="sidebar-title">Filter by price</div>
@@ -24,24 +38,16 @@ function FilterProducts() {
                     <div className="price-filter-select d-flex flex-row justify-content-between">
                          <div className="form-group">
                               <select name="minPrice" className="form-select" id="minPrice">
-                                   <option value="0">0</option>
-                                   <option value="50">50</option>
-                                   <option value="100">100</option>
-                                   <option value="150">150</option>
-                                   <option value="200">200</option>
-                                   <option value="500">500</option>
-                                   <option value="1000">1000</option>
+                                   {minPriceOptions.map(optionValue =>
+                                        <option key={optionValue} value={optionValue}>{optionValue}</option>
+                                   )}
                               </select>
                          </div>
                          <div className="form-group">
                               <select name="maxPrice" className="form-select" id="maxPrice">
-                                   <option value="0">0</option>
-                                   <option value="100">100</option>
-                                   <option value="500">500</option>
-                                   <option value="800">800</option>
-                                   <option value="1000">1000</option>
-                                   <option value="5000">5000</option>
-                                   <option value="10000">10000</option>
+                                   {maxPriceOptions.map(optionValue =>
+                                        <option key={optionValue} value={optionValue}>{optionValue}</option>
+                                   )}
                               </select>
                          </div>
                     </div>
