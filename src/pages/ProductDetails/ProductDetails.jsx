@@ -1,23 +1,43 @@
 //CSS imports
+import { useParams } from 'react-router-dom';
 import './ProductDetails.css';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { getProduct } from '../../apis/fakeStoreProdApis';
 
 function ProductDetails() {
+
+     const { id } = useParams();
+     const [product, setProduct] = useState(null);
+
+     async function downloadProducts(id) {
+          const response = await axios.get(getProduct(id));
+          setProduct(response.data);
+          console.log(response.data);
+     }
+
+     useEffect(() => {
+          downloadProducts(id)
+     }, [])
+
+
      return (
+          product &&
           <div className="container">
                <div className="row">
                     <div className="product-details-wrapper d-flex justify-content-between flex-row">
                          <div className="product-img d-flex">
-                              <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D" alt="Product Image" id="product-img" />
+                              <img src={product.image} alt="Product Image" id="product-img" />
                          </div>
                          <div className="product-details-box d-flex flex-column">
                               <div id="productDetails">
                                    {/* { < !--TODO fill the product details-->} */}
-                                   <div className="product-name" id="product-name">Some product</div>
-                                   <div className="product-price fw-bold" id="product-price">324</div>
+                                   <div className="product-name" id="product-name">{product.title}</div>
+                                   <div className="product-price fw-bold" id="product-price">$ {product.price}</div>
                                    <div className="product-description">
                                         <div className="product-description-title fw-bold">Description</div>
                                         <div className="product-description-data" id="product-description-data">
-                                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam animi illo, suscipit pariatur vero omnis exercitationem.
+                                             {product.description}
                                         </div>
                                    </div>
                               </div>
