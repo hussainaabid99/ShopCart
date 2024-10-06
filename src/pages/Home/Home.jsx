@@ -28,7 +28,7 @@ function Home() {
 
                          <CategoryItem itemName="All Products" />
 
-                         {categories && categories.map(category => <CategoryItem itemName={category} key={category} />)}
+                         {categories && categories.map(category => <CategoryItem itemName={category} key={category} filter={category} />)}
 
                     </div>
 
