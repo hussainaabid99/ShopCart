@@ -1,13 +1,24 @@
-import ProductImage from '../../assets/product.jpg';
-
 //CSS import
 import './ProductList.css';
 
 //Image import
 import ProductBox from '../../components/ProductBox/ProductBox';
 import FilterProducts from '../../components/FilterProduct/FilterProducts';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function ProductList() {
+
+     const [productList, setProductList] = useState(null);
+
+     async function downloadProducts() {
+          const response = await axios.get(`https://fakestoreapi.com/products`);
+          setProductList(response.data);
+     }
+
+     useEffect(() => {
+          downloadProducts();
+     }, [])
 
      return (
           <div className="container">
@@ -20,7 +31,15 @@ function ProductList() {
                          {/**List of products */}
 
                          <div className="product-list-box" id="productList">
-                              <ProductBox productImage={ProductImage} name={"dummy"} price={1000} />
+
+                              {productList && productList.map(
+                                   (product) => <ProductBox
+                                        key={product.id}
+                                        name={product.title}
+                                        price={product.price}
+                                        productImage={product.image}
+
+                                   />)}
                          </div>
                     </div>
                </div>
