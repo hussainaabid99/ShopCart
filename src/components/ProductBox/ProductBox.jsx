@@ -4,7 +4,7 @@ import './ProductBox.css';
 
 function ProductBox({ productImage, name, price }) {
      return (
-          <Link to="/product/2"
+          <Link to="/products/2"
                href="productDetails.html"
                className="product-item text-decoration-none d-inline-block">
                <div className="product-img">
