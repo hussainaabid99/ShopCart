@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useImperativeHandle, useState } from "react";
 
-function Auth({ onSubmit, resetForm }) {
+function Auth({ onSubmit }, ref) {
 
      const [formDetials, setFormDetails] = useState({ email: '', password: '', username: '', isLoading: false });
 
@@ -18,12 +18,23 @@ function Auth({ onSubmit, resetForm }) {
 
      function onFormSubmit() {
           setFormDetails({ ...formDetials, isLoading: true });
-          onSubmit(formDetials);
+          onSubmit(formDetials, resetForm);
      }
 
+     function resetForm() {
+          setFormDetails({ email: '', password: '', username: '', isLoading: false });
+     }
+
+
+     useImperativeHandle(ref, () => {
+          return {
+               resetFormData: resetForm
+          }
+     }, [])
+
      useEffect(() => {
-          setFormDetails({ email: '', password: '', username: '', isLoading: false })
-     }, [resetForm])
+          setFormDetails({ email: '', password: '', username: '', isLoading: false });
+     }, []);
 
      return (
           <>
@@ -46,4 +57,4 @@ function Auth({ onSubmit, resetForm }) {
      )
 }
 
-export default Auth;
+export default React.forwardRef(Auth);
