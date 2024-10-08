@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
      Collapse,
      Navbar,
@@ -15,11 +15,18 @@ import { Link } from 'react-router-dom';
 
 //CSS import
 import './Header.css';
+import { useCookies } from 'react-cookie';
 
 function Header(props) {
+
      const [isOpen, setIsOpen] = useState(false);
+     const [token, setToken, removeToken] = useCookies(['jwt-token']);
 
      const toggle = () => setIsOpen(!isOpen);
+
+     useEffect(() => {
+          // console.log(token);
+     }, [token]);
 
      return (
           <div >
@@ -39,7 +46,9 @@ function Header(props) {
                                         <DropdownItem>Setings</DropdownItem>
                                         <DropdownItem divider />
                                         <DropdownItem id="login">
-                                             <Link to="/signin">Logout</Link>
+                                             {token['jwt-token'] ? <Link onClick={() => {
+                                                  removeToken('jwt-token');
+                                             }} to="/signin">Logout</Link> : <Link to="/signin">SignIn</Link>}
                                         </DropdownItem>
                                    </DropdownMenu>
                               </UncontrolledDropdown>
